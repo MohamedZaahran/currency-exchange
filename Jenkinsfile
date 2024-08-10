@@ -1,11 +1,14 @@
 pipeline {
-    environment {
-        docker = tool 'myDocker'
-        maven = tool 'myMaven'
-        PATH = "${docker}/bin:${maven}/bin:${PATH}"
+    agent any
+    
+    tools {
+        maven 'myMaven'
+        dockerTool 'myDocker'
     }
 
-    agent any
+    triggers {
+        pollSCM('* * * * *')  // This checks the repository every minute
+    }
     
     stages {
         stage('Environment Setup')
@@ -15,6 +18,60 @@ pipeline {
                     echo 'Verifying Envionment Setup...'
                     sh 'mvn --version'
                     sh 'docker --version'
+                }
+            }
+        }
+        
+        stage('Checkout')
+        {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build')
+        {
+            steps {
+                script {
+                    sh 'mvn clean compile'
+                }
+            }
+        }
+
+        stage('Test')
+        {
+            steps {
+                script {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('Package')
+        {
+            steps {
+                script {
+                    sh 'mvn package'
+                }
+            }
+        }
+
+        stage('Build Docker Image')
+        {
+            steps {
+                script {
+                    dockerImage = docker.build("zahran23/currency-exchange:${env.BUILD_NUMBER}")
+                }
+            }
+        }
+
+        stage('Push Docker Image')
+        {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
+                        dockerImage.push()
+                    }
                 }
             }
         }
