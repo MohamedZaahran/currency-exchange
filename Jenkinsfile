@@ -25,6 +25,7 @@ pipeline {
         stage('Checkout')
         {
             steps {
+                echo 'Checking out the SCM...'
                 checkout scm
             }
         }
@@ -33,6 +34,7 @@ pipeline {
         {
             steps {
                 script {
+                    echo 'Building Maven...'
                     sh 'mvn clean compile'
                 }
             }
@@ -42,6 +44,7 @@ pipeline {
         {
             steps {
                 script {
+                    echo 'Testing Maven...'
                     sh 'mvn test'
                 }
             }
@@ -51,6 +54,7 @@ pipeline {
         {
             steps {
                 script {
+                    echo 'Packaging Maven...'
                     sh 'mvn package'
                 }
             }
@@ -60,6 +64,7 @@ pipeline {
         {
             steps {
                 script {
+                    echo 'Building Docker Image...'
                     dockerImage = docker.build("zahran23/currency-exchange:${env.BUILD_NUMBER}")
                 }
             }
@@ -69,6 +74,7 @@ pipeline {
         {
             steps {
                 script {
+                    echo 'Pushing Docker Image to DockerHub...'
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
                         dockerImage.push()
                     }
