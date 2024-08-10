@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     tools {
+        docker 'myDocker'
         maven 'myMaven'
     }
 
