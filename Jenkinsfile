@@ -6,7 +6,6 @@ pipeline {
     }
 
     tools {
-        jdk 'java17'
         maven 'myMaven'
         dockerTool 'myDocker'
     }
