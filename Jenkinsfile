@@ -113,18 +113,18 @@ pipeline {
                 }
             }
         }
-
-        post {
-            always {
-                echo 'Finished.'
-                //cleanWs()
-            }
-            success {
-                echo 'Succeeded.'
-            }
-            failure {
-                echo 'Failed.'
-            }
+    }
+    
+    post {
+        always {
+            echo 'Finished.'
+            //cleanWs()
+        }
+        success {
+            echo 'Succeeded.'
+        }
+        failure {
+            echo 'Failed.'
         }
     }
 }
