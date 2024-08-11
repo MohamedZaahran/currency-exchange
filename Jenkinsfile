@@ -64,6 +64,8 @@ pipeline {
             }
             environment {
                 scannerHome = tool 'mySonarQube' // the name you have given the Sonar Scanner (Global Tool Configuration)
+                JAVA_HOME = "${tool 'java17'}"
+                PATH = "${env.JAVA_HOME}/bin:${scannerHome}/bin:${PATH}"
             }
             steps {
                 echo 'Analysing code with SonarQube...'
