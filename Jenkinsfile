@@ -28,13 +28,12 @@ pipeline {
             }
         }
         
-        stage('Checkout')
-        {
-            steps {
-                echo 'Checking out the SCM...'
-                checkout scm
-            }
-        }
+        stage('Checkout') {
+    steps {
+        echo 'Checking out the SCM...'
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace']], userRemoteConfigs: [[url: 'https://github.com/MohamedZaahran/currency-exchange']]])
+    }
+}
 
         stage('Build')
         {
