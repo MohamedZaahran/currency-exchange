@@ -3,6 +3,7 @@ pipeline {
     
     environment {
         SonarQubeHome = tool "mySonarQube"
+        PATH = "${SonarQubeHome}/bin:${PATH}"
     }
 
     tools {
@@ -57,10 +58,9 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
+                echo 'Analysing code with SonarQube...'
                 withSonarQubeEnv('My SonarQube Server') {
-                    script {
-                        sh 'sonar-scanner -Dsonar.host.url=http://sonarqube:9000'
-                    }
+                    sh 'sonar-scanner -Dsonar.host.url=http://sonarqube:9000'
                 }
             }
         }
