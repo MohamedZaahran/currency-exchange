@@ -3,10 +3,12 @@ pipeline {
     
     environment {
         SonarQubeHome = tool "mySonarQube"
-        PATH = "${SonarQubeHome}/bin:${PATH}"
+        JAVA_HOME = "${tool 'java17'}"
+        PATH = "${env.JAVA_HOME}/bin:${SonarQubeHome}/bin:${PATH}"
     }
 
     tools {
+        jdk 'java17'
         maven 'myMaven'
         dockerTool 'myDocker'
     }
