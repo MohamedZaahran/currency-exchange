@@ -32,7 +32,7 @@ pipeline {
         {
             steps {
                 echo 'Checking out the SCM...'
-                checkout scm
+                git branch: 'main', url: 'https://github.com/MohamedZaahran/currency-exchange'
             }
         }
 
