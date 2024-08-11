@@ -133,7 +133,7 @@ pipeline {
     post {
         always {
             echo 'Finished.'
-            cleanWs()
+            //cleanWs()
         }
         success {
             echo 'Succeeded.'
