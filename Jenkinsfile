@@ -60,7 +60,7 @@ pipeline {
             steps {
                 echo 'Analysing code with SonarQube...'
                 withSonarQubeEnv('My SonarQube Server') {
-                    sh 'sonar-scanner'
+                    sh 'sonar-scanner -Dsonar.host.url=http://sonarqube:9000'
                 }
             }
         }
