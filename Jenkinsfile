@@ -3,12 +3,12 @@ pipeline {
     
     environment {
         SonarQubeHome = tool "mySonarQube"
-        JAVA_HOME = "${tool 'java17'}"
+        JAVA_HOME = "${tool 'java11'}"
         PATH = "${env.JAVA_HOME}/bin:${SonarQubeHome}/bin:${PATH}"
     }
 
     tools {
-        jdk 'java17'
+        jdk 'java11'
         maven 'myMaven'
         dockerTool 'myDocker'
     }
@@ -63,12 +63,12 @@ pipeline {
                 withSonarQubeEnv('My SonarQube Server') {
                     script {
                         // Rebuild the JAVA_HOME and PATH in case the tool section didn't apply
-                        env.JAVA_HOME = "${tool 'java17'}"
+                        env.JAVA_HOME = "${tool 'java11'}"
                         env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
                         // Confirm the correct Java version is being used by SonarScanner
                         sh 'java -version'
-                        sh 'sonar-scanner -Dsonar.host.url=http://sonarqube:9000 -Dsonar.java.source=17'
+                        sh 'sonar-scanner -Dsonar.host.url=http://sonarqube:9000 -Dsonar.java.source=11'
                     }
                 }
             }
