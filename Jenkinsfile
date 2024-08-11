@@ -9,7 +9,7 @@ pipeline {
     tools {
         maven 'myMaven'
         dockerTool 'myDocker'
-    }
+    }git 
 
     triggers {
         pollSCM('* * * * *')  // This checks the repository every minute
