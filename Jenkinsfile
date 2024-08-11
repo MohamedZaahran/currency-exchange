@@ -4,6 +4,7 @@ pipeline {
     tools {
         maven 'myMaven'
         dockerTool 'myDocker'
+        sonarQube 'mySonarQube'
     }
 
     triggers {
@@ -18,6 +19,7 @@ pipeline {
                     echo 'Verifying Envionment Setup...'
                     sh 'mvn --version'
                     sh 'docker --version'
+                    sh 'sonar-scanner --version'
                 }
             }
         }
@@ -46,6 +48,15 @@ pipeline {
                 script {
                     echo 'Testing Maven...'
                     sh 'mvn test'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                echo 'Analysing code with SonarQube...'
+                withSonarQubeEnv('My SonarQube Server') {
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
