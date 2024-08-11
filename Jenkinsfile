@@ -4,7 +4,6 @@ pipeline {
     tools {
         maven 'myMaven'
         dockerTool 'myDocker'
-        sonarqube 'mySonarQube'
     }
 
     triggers {
