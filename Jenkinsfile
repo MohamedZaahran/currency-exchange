@@ -9,7 +9,7 @@ pipeline {
     tools {
         maven 'myMaven'
         dockerTool 'myDocker'
-    }git 
+    }
 
     triggers {
         pollSCM('* * * * *')  // This checks the repository every minute
@@ -28,12 +28,13 @@ pipeline {
             }
         }
         
-        stage('Checkout') {
-    steps {
-        echo 'Checking out the SCM...'
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace']], userRemoteConfigs: [[url: 'https://github.com/MohamedZaahran/currency-exchange']]])
-    }
-}
+        stage('Checkout')
+        {
+            steps {
+                echo 'Checking out the SCM...'
+                checkout scm
+            }
+        }
 
         stage('Build')
         {
@@ -132,7 +133,7 @@ pipeline {
     post {
         always {
             echo 'Finished.'
-            cleanWs()
+            //cleanWs()
         }
         success {
             echo 'Succeeded.'
