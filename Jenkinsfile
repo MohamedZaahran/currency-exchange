@@ -101,5 +101,30 @@ pipeline {
                 }
             }
         }
+
+        stage('Verify Deployment') {
+            steps {
+                script {
+                    echo 'Verifying Deployment...'
+                    sh '''
+                    kubectl rollout status deployment/currency-exchange-deployment
+                    kubectl get pods -l app=currency-exchange
+                    '''
+                }
+            }
+        }
+
+        post {
+            always {
+                echo 'Finished.'
+                //cleanWs()
+            }
+            success {
+                echo 'Succeeded.'
+            }
+            failure {
+                echo 'Failed.'
+            }
+        }
     }
 }
