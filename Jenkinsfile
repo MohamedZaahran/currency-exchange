@@ -96,10 +96,8 @@ pipeline {
         {
             steps {
                 script {
-                    sh """
-                    kubectl set image deployment/currency-exchange.yaml jenkins-blueocean=zahran23/currency-exchange:${env.BUILD_NUMBER}
-                    kubectl rollout status deployment/currency-exchange.yaml
-                    """
+                    echo 'Deploying on Kubernetes...'
+                    sh 'envsubst < currency-exchange.yaml | kubectl apply -f -'
                 }
             }
         }
