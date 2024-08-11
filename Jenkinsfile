@@ -1,6 +1,11 @@
 pipeline {
     agent any
     
+    environment {
+        SonarQubeHome = tool "mySonarQube"
+        PATH = "${SonarQubeHome}/bin:${PATH}"
+    }
+
     tools {
         maven 'myMaven'
         dockerTool 'myDocker'
