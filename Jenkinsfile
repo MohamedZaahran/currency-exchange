@@ -32,7 +32,7 @@ pipeline {
         {
             steps {
                 echo 'Checking out the SCM...'
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', depth: 1]]])
+                checkout scm
             }
         }
 
