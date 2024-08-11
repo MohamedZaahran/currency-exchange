@@ -59,18 +59,17 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            tools {
-                jdk "java17" // the name you have given the JDK installation using the JDK manager (Global Tool Configuration)
-            }
-            environment {
-                scannerHome = tool 'mySonarQube' // the name you have given the Sonar Scanner (Global Tool Configuration)
-                JAVA_HOME = "${tool 'java17'}"
-                PATH = "${env.JAVA_HOME}/bin:${scannerHome}/bin:${PATH}"
-            }
             steps {
-                echo 'Analysing code with SonarQube...'
                 withSonarQubeEnv('My SonarQube Server') {
-                    sh 'sonar-scanner -Dsonar.host.url=http://sonarqube:9000'
+                    script {
+                        // Rebuild the JAVA_HOME and PATH in case the tool section didn't apply
+                        env.JAVA_HOME = "${tool 'java17'}"
+                        env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
+
+                        // Confirm the correct Java version is being used by SonarScanner
+                        sh 'java -version'
+                        sh 'sonar-scanner -Dsonar.host.url=http://sonarqube:9000 -Dsonar.java.source=17'
+                    }
                 }
             }
         }
