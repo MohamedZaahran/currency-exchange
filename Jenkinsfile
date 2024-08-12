@@ -69,7 +69,8 @@ pipeline {
                             -Dsonar.login=${SONAR_TOKEN} \
                             -Dsonar.projectKey=currency-exchange \
                             -Dsonar.projectName=currency-exchange \
-                            -Dsonar.sources=.
+                            -Dsonar.sources=. \
+                            -Dsonar.java.binaries=target/classes
                             """
                         }
                     }
