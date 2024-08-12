@@ -102,7 +102,7 @@ pipeline {
             steps {
                 script {
                     echo 'Scanning Docker Image with Trivy...'
-                    sh 'trivy image --severity HIGH,CRITICAL zahran23/currency-exchange:${env.BUILD_NUMBER}'
+                    sh "trivy image --severity HIGH,CRITICAL zahran23/currency-exchange:${env.BUILD_NUMBER}"
                 }
             }
         }
