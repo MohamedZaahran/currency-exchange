@@ -1,10 +1,14 @@
 # Automated CI/CD Pipeline with Docker, Jenkins, and Kubernetes
 This repository contains a fully automated Continuous Integration/Continuous Deployment (CI/CD) pipeline designed to streamline the development, testing, and deployment process of a Java-based microservice. The pipeline is built using Jenkins, Docker, and Kubernetes, enabling seamless integration and deployment from code commit to production.
 
+![Workflow](https://github.com/user-attachments/assets/6b3e9b6b-dd67-42c7-a7c5-311f9e4e774a)
+
 ## Key Features:
 ### Jenkins Pipeline Automation:
 The Jenkins pipeline is triggered by **SCM polling**, ensuring that the pipeline runs every time there's a new commit in the source code repository.<br>
 Automated stages for building, testing, packaging, and deploying the application using Jenkins, providing clear feedback at every step of the process.
+
+![Jenkins Pipeline](https://github.com/user-attachments/assets/ab3ba6b2-2218-4dce-835d-62d239d7408d)
 
 ### Docker Integration:
 The application is packaged as a Docker image, ensuring consistent environments across development, testing, and production.<br>
@@ -17,6 +21,8 @@ Trivy scans the image and reports any vulnerabilities, especially those with HIG
 ### SonarQube Code Analysis:
 The pipeline integrates **SonarQube** for static code analysis, ensuring that the code meets quality standards before being deployed.<br>
 SonarQube analyzes the code, identifies potential bugs, code smells, and security vulnerabilities, and reports them within the pipeline.
+
+![SonarQube Analysis](https://github.com/user-attachments/assets/8ac324be-9098-4f00-a815-75bd84c1e806)
 
 ### Kubernetes Deployment:
 The Docker image is deployed to a **Kubernetes cluster** running on **Minikube**, using a **Kubernetes Deployment** and **Service** definition.<br>
