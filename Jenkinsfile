@@ -98,6 +98,15 @@ pipeline {
             }
         }
 
+        stage('Scan Docker Image with Trivy') {
+            steps {
+                script {
+                    echo 'Scanning Docker Image with Trivy...'
+                    sh 'trivy image --severity HIGH,CRITICAL zahran23/currency-exchange:${env.BUILD_NUMBER}'
+                }
+            }
+        }
+
         stage('Push Docker Image')
         {
             steps {
