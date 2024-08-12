@@ -32,7 +32,7 @@ pipeline {
         {
             steps {
                 echo 'Checking out the SCM...'
-                git branch: 'main', url: 'https://github.com/MohamedZaahran/currency-exchange'
+                checkout scm
             }
         }
 
@@ -59,8 +59,17 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 echo 'Analysing code with SonarQube...'
+                
                 withSonarQubeEnv('My SonarQube Server') {
-                    sh 'sonar-scanner -Dsonar.host.url=http://sonarqube:9000'
+                    script {
+                        withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                            sh """
+                            sonar-scanner \
+                            -Dsonar.host.url=http://sonarqube:9000 \
+                            -Dsonar.login=${SONAR_TOKEN}
+                            """
+                        }
+                    }
                 }
             }
         }
