@@ -8,7 +8,7 @@ This repository contains a fully automated Continuous Integration/Continuous Dep
 The Jenkins pipeline is triggered by **SCM polling**, ensuring that the pipeline runs every time there's a new commit in the source code repository.<br>
 Automated stages for building, testing, packaging, and deploying the application using Jenkins, providing clear feedback at every step of the process.
 
-![Jenkins Pipeline](https://github.com/user-attachments/assets/ab3ba6b2-2218-4dce-835d-62d239d7408d)
+![Jenkins Pipeline](https://github.com/user-attachments/assets/158ecb3d-e967-48d5-a0fc-71255c5d7eb6)
 
 ### Docker Integration:
 The application is packaged as a Docker image, ensuring consistent environments across development, testing, and production.<br>
